@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/checked.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/confirm_password.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/custom_checkbox.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/edit_text_style.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/ic_add.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/ic_email.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/ic_invisible.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/ic_menu_camera.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/ic_menu_slideshow.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/ic_password.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/ic_user.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/ic_visible.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/side_nav_bar.xml" value="0.14635416666666667" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/task_style.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/unchecked.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/activity_login.xml" value="0.264" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/activity_main.xml" value="0.264" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/app_bar_main.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/content_main.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/fragment_gallery.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/fragment_home.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/fragment_homepage.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/fragment_slideshow.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/fragment_tasks.xml" value="0.264" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/nav_header_main.xml" value="0.264" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/task.xml" value="0.264" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/menu/activity_main_drawer.xml" value="0.536" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/menu/main.xml" value="0.13020833333333334" />
+      </map>
+    </option>
+  </component>
+  <component name="ProjectRootManager" version="2" languageLevel="JDK_11" default="true" project-jdk-name="1.8" project-jdk-type="JavaSDK">
+    <output url="file://$PROJECT_DIR$/build/classes" />
+  </component>
+  <component name="ProjectType">
+    <option name="id" value="Android" />
+  </component>
+</project>

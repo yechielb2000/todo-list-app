@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:showIn="navigation_view">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_tasks"
+            android:icon="@drawable/ic_tasks"
+            android:title="@string/menu_tasks" />
+        <item
+            android:id="@+id/nav_home"
+            android:icon="@drawable/ic_home"
+            android:title="@string/home"/>
+    </group>
+
+    <item android:title="">
+        <menu>
+            <item android:title="@string/action_settings" android:id="@+id/settings" android:icon="@drawable/ic_settings"/>
+            <item android:title="@string/log_out" android:id="@+id/log_out" android:icon="@drawable/ic_logout"/>
+            <item android:title="@string/support" android:id="@+id/sup" android:icon="@drawable/ic_support"/>
+            <item android:title="@string/share" android:id="@+id/share_app" android:icon="@drawable/ic_share"/>
+        </menu>
+
+    </item>
+
+</menu>
