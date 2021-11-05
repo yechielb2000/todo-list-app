@@ -23,6 +23,7 @@
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/app_bar_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/content_main.xml" value="0.24010416666666667" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/fragment_create_new_task.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/fragment_gallery.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/fragment_home.xml" value="0.13020833333333334" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/fragment_homepage.xml" value="0.25416666666666665" />
@@ -32,6 +33,7 @@
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/task.xml" value="0.264" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/menu/activity_main_drawer.xml" value="0.536" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/menu/main.xml" value="0.13020833333333334" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/menu/search_menu.xml" value="0.25416666666666665" />
       </map>
     </option>
   </component>
