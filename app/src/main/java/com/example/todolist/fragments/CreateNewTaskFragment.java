@@ -8,21 +8,23 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
-
+import android.widget.TimePicker;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
-
 import com.example.todolist.R;
-
 import java.util.Calendar;
+import java.util.Date;
 
 public class CreateNewTaskFragment extends DialogFragment {
 
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
-    private String pickedDate = "";
-    private EditText title, text
+    private long pickedDate;
+    private final long currentDate = new Date().getTime();
+    private EditText title, text;
+
 
     @Nullable @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -30,30 +32,45 @@ public class CreateNewTaskFragment extends DialogFragment {
         View view = inflater.inflate(R.layout.fragment_create_new_task, container, false);
 
         dateButton = view.findViewById(R.id.date_picker);
+        Button submitTask = view.findViewById(R.id.submit_task);
+
+        title = view.findViewById(R.id.edit_text_title);
+        text = view.findViewById(R.id.edit_text_text);
 
         initDatePicker();
 
         dateButton.setOnClickListener(v -> datePickerDialog.show());
 
+        submitTask.setOnClickListener(v -> {
+
+            Toast.makeText(getContext(), title.getText().toString() + "\n" + text.getText().toString() + "\n" + currentDate + "\n" + pickedDate, Toast.LENGTH_LONG).show();
+           //todo new String[]{title.getText().toString(), text.getText().toString(), currentDate, pickedDate}
+           // send [title, text, current time, deadline time] to database
+        });
+
         return view;
     }
 
     private void initDatePicker() {
-        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
-            month = month + 1;
-                String date = getMonthFormat(month) + " " + day + " " + year;
-                dateButton.setText(date);
-                pickedDate = date;
-        };
 
         Calendar cal = Calendar.getInstance();
-        int year = cal.get(Calendar.YEAR);
-        int month = cal.get(Calendar.MONTH);
-        int day = cal.get(Calendar.DAY_OF_MONTH);
 
-        int style = AlertDialog.THEME_HOLO_DARK;
+        DatePickerDialog.OnDateSetListener dateSetListener = (datePicker, year, month, day) -> {
+            String date = getMonthFormat(month  + 1) + " " + day + " " + year;
+            dateButton.setText(date);
 
-        datePickerDialog = new DatePickerDialog(getContext(), style, dateSetListener, year, month, day);
+            TimePicker timePicker = new TimePicker(getContext());
+
+            cal.set(Calendar.DAY_OF_MONTH, datePicker.getDayOfMonth());
+            cal.set(Calendar.MONTH, datePicker.getMonth());
+            cal.set(Calendar.YEAR, datePicker.getYear());
+            cal.set(Calendar.HOUR, timePicker.getCurrentHour());
+            cal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
+
+            pickedDate = cal.getTimeInMillis();
+        };
+
+        datePickerDialog = new DatePickerDialog(getContext(), AlertDialog.THEME_HOLO_DARK, dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
         datePickerDialog.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
     }
 

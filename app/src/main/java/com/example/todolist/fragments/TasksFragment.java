@@ -59,7 +59,7 @@ public class TasksFragment extends Fragment {
     }
 
     public void getTasks(ArrayList tasks){
-        for (int i = 0; i < 10; i++)
+        for (int i = 0; i < 3; i++)
             tasks.add(new Task("title " + i, "Some Text for example "));
     }
 

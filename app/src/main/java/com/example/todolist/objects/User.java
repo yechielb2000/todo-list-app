@@ -2,22 +2,22 @@ package com.example.todolist.objects;
 
 public class User {
 
-    public String userName, email, password;
+    public String name, email, password;
     public int id;
 
     public User(String userName, String password, String email, int id) {
-        this.userName = userName;
+        this.name = userName;
         this.password = password;
         this.email = email;
         this.id = id;
     }
 
-    public String getUserName() {
-        return userName;
+    public String getName() {
+        return name;
     }
 
-    public void setUserName(String userName) {
-        this.userName = userName;
+    public void setName(String name) {
+        this.name = name;
     }
 
     public String getEmail() {

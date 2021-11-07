@@ -5,7 +5,8 @@
     android:layout_height="match_parent"
     tools:context=".RegisterActivity"
     android:orientation="vertical"
-    android:gravity="center">
+    android:gravity="center"
+    android:background="@color/page">
 
     <LinearLayout
         android:layout_margin="20dp"
@@ -24,7 +25,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/text_email_register"
+            android:id="@+id/register_email"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -38,7 +39,7 @@
             tools:ignore="TextFields" />
 
         <EditText
-            android:id="@+id/TextUserNameRegister"
+            android:id="@+id/register_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -57,7 +58,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/TextPasswordRegister"
+                android:id="@+id/register_password"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -79,7 +80,7 @@
         </LinearLayout>
 
         <EditText
-            android:id="@+id/TextPasswordVerification"
+            android:id="@+id/register_confirm_password"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -94,7 +95,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/RegisterButton"
+        android:id="@+id/register_button"
         android:layout_marginTop="30dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

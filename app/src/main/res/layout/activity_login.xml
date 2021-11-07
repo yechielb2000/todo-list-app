@@ -3,7 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity">
+    tools:context=".LoginActivity"
+    android:background="@color/page">
+
+<!--  todo make a forget password option  -->
 
     <LinearLayout
         android:layout_margin="70dp"
@@ -22,7 +25,7 @@
             android:textStyle="bold" />
 
         <EditText
-            android:id="@+id/username"
+            android:id="@+id/sign_in_name"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
@@ -34,7 +37,6 @@
             android:backgroundTint="@color/red"
             android:drawableStart="@drawable/ic_user"/>
 
-
         <LinearLayout
             android:layout_marginTop="30dp"
             android:layout_width="match_parent"
@@ -42,7 +44,7 @@
             android:orientation="horizontal">
 
             <EditText
-                android:id="@+id/password"
+                android:id="@+id/sign_in_password"
                 android:layout_weight="1"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -54,12 +56,12 @@
                 android:backgroundTint="@color/red"
                 android:drawableStart="@drawable/ic_password" />
 
-            <ImageButton
-                android:id="@+id/visibility_control"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:background="@drawable/ic_invisible" />
+             <ImageButton
+                    android:id="@+id/visibility_control"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/ic_invisible" />
 
         </LinearLayout>
 
@@ -70,7 +72,7 @@
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.SwitchCompat
-                android:id="@+id/rememberMe"
+                android:id="@+id/remember_me_switch"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:theme="@style/SwitchCompatTheme"
@@ -80,7 +82,7 @@
                 android:backgroundTint="@color/redLight"/>
 
             <Button
-                android:id="@+id/LoginButton"
+                android:id="@+id/login_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/login"
@@ -105,7 +107,7 @@
                 android:textColor="@color/red"/>
 
             <TextView
-                android:id="@+id/register"
+                android:id="@+id/not_register_button"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/register"
