@@ -1,5 +1,16 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="DesignSurface">
+    <option name="filePathToZoomLevelMap">
+      <map>
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/ic_sup.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/ic_support.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/activity_login.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/fragment_tasks.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/menu/activity_main_drawer.xml" value="0.25416666666666665" />
+      </map>
+    </option>
+  </component>
   <component name="ExternalStorageConfigurationManager" enabled="true" />
   <component name="ProjectRootManager" version="2" languageLevel="JDK_11" project-jdk-name="11" project-jdk-type="JavaSDK" />
 </project>

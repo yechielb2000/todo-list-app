@@ -36,7 +36,7 @@
            <androidx.recyclerview.widget.RecyclerView
                android:id="@+id/today_tasks"
                android:layout_width="match_parent"
-               android:layout_height="wrap_content"/>
+               android:layout_height="match_parent"/>
 
            <TextView
                android:layout_width="match_parent"
@@ -49,7 +49,7 @@
            <androidx.recyclerview.widget.RecyclerView
                android:id="@+id/more_tasks"
                android:layout_width="match_parent"
-               android:layout_height="wrap_content" />
+               android:layout_height="match_parent" />
 
        </LinearLayout>
    </ScrollView>

@@ -6,8 +6,11 @@ import com.mongodb.MongoClient;
 import com.mongodb.MongoClientURI;
 import com.mongodb.client.MongoCollection;
 import com.mongodb.client.MongoDatabase;
+import com.mongodb.util.JSON;
 
 public class MongoInit {
+
+//    mongodb://nivniv1993:nivniv1993@cluster0.hryaw.mongodb.net/Grady?retryWrites=true&w=majority
 
     private MongoDatabase db;
 
@@ -36,6 +39,12 @@ public class MongoInit {
         document.put("createdAt", createAt);
         document.put("deadlineDate", deadlineDate);
         collection.insertOne(document);
+    }
+
+    public void getUser(String userId){
+
+        MongoCollection<BasicDBObject> collection = db.getCollection("users", BasicDBObject.class);
+
     }
 
 }

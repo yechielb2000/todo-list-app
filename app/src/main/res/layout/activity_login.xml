@@ -4,7 +4,8 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".LoginActivity"
-    android:background="@color/page">
+    android:background="@color/page"
+    android:gravity="center">
 
 <!--  todo make a forget password option  -->
 
@@ -68,30 +69,32 @@
         <LinearLayout
             android:layout_marginTop="30dp"
             android:orientation="horizontal"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <androidx.appcompat.widget.SwitchCompat
                 android:id="@+id/remember_me_switch"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
                 android:theme="@style/SwitchCompatTheme"
                 android:text="@string/remember_me"
+                android:layout_weight="2"
                 android:textStyle="bold|italic"
                 android:textColor="@color/red"
                 android:backgroundTint="@color/redLight"/>
 
             <Button
                 android:id="@+id/login_button"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
                 android:text="@string/login"
+                android:layout_marginStart="10dp"
                 android:textColor="@color/red"
                 android:backgroundTint="@color/red"
                 android:backgroundTintMode="screen"/>
 
         </LinearLayout>
-
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -116,7 +119,6 @@
                 android:textColor="@color/redDark"/>
 
         </LinearLayout>
-
     </LinearLayout>
 
 </LinearLayout>
