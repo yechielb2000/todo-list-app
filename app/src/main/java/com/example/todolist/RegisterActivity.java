@@ -2,6 +2,7 @@ package com.example.todolist;
 
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.EditText;
 import com.example.todolist.objects.VisibilityControl;
 
@@ -48,6 +49,16 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }else{
                 //todo -> confirm email
+
+                Thread t = new Thread(() ->{
+                    MongoInit mongoInit = new MongoInit();
+                        try {
+                            mongoInit.createNewUser(_name, _email, _password);
+                        }catch (Exception e){
+                            Log.d("TAG", e.getMessage());
+                        }
+                });
+                t.start();
             }
 
             /*todo -> if email is confirmed send data to database
