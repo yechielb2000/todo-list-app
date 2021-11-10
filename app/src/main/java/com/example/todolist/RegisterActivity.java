@@ -29,37 +29,27 @@ public class RegisterActivity extends AppCompatActivity {
                     _password = password.getText().toString(),
                     _confirmPassword = confirmPassword.getText().toString();
 
-            if(_name.length() <= 1){
-                name.setError("Username has to contain more than 1 character");
-                return;
-            }
-
-            if(_password.length() <= 6){
-                password.setError("Password has to contain more than 6 characters");
-                return;
-            }
-
-            if(!_confirmPassword.equals(_password)) {
-                confirmPassword.setError("Password is incorrect");
-                return;
-            }
-
-            if(_email.length() <= 8) {
-                email.setError("Please enter a legitimate email");
-                return;
-            }else{
+//            if(_name.length() <= 1){
+//                name.setError("Username has to contain more than 1 character");
+//                return;
+//            }
+//
+//            if(_password.length() <= 6){
+//                password.setError("Password has to contain more than 6 characters");
+//                return;
+//            }
+//
+//            if(!_confirmPassword.equals(_password)) {
+//                confirmPassword.setError("Password is incorrect");
+//                return;
+//            }
+//
+//            if(_email.length() <= 8) {
+//                email.setError("Please enter a legitimate email");
+//                return;
+//            }else{
                 //todo -> confirm email
-
-                Thread t = new Thread(() ->{
-                    MongoInit mongoInit = new MongoInit();
-                        try {
-                            mongoInit.createNewUser(_name, _email, _password);
-                        }catch (Exception e){
-                            Log.d("TAG", e.getMessage());
-                        }
-                });
-                t.start();
-            }
+//            }
 
             /*todo -> if email is confirmed send data to database
                 if not ask him to confirm or to change email
