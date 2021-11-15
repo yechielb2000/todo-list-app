@@ -3,9 +3,10 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
+    tools:context=".ui.LoginActivity"
     android:background="@color/page"
-    android:gravity="center">
+    android:gravity="center"
+    >
 
 <!--  todo make a forget password option  -->
 
@@ -65,6 +66,16 @@
                     android:background="@drawable/ic_invisible" />
 
         </LinearLayout>
+
+        <TextView
+            android:id="@+id/forgot_password_textview"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="right"
+            tools:ignore="RtlHardcoded"
+            android:layout_marginTop="3dp"
+            android:text="@string/forgot_password"
+            android:textColor="@color/redDark"/>
 
         <LinearLayout
             android:layout_marginTop="30dp"
