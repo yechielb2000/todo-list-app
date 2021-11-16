@@ -9,8 +9,8 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.todolist.R;
-import com.example.todolist.fragments.HomepageFragment;
-import com.example.todolist.fragments.TasksFragment;
+import com.example.todolist.ui.fragments.HomepageFragment;
+import com.example.todolist.ui.fragments.TasksFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {

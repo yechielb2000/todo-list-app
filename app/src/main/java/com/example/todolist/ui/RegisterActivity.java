@@ -8,7 +8,7 @@ import android.widget.Toast;
 
 import com.example.todolist.R;
 import com.example.todolist.backend.Retrofit2Init;
-import com.example.todolist.objects.VisibilityControl;
+import com.example.todolist.objects.PasswordVisibilityControl;
 
 import java.util.HashMap;
 
@@ -30,7 +30,7 @@ public class RegisterActivity extends AppCompatActivity {
         password = findViewById(R.id.register_password);
         confirmPassword = findViewById(R.id.register_confirm_password);
 
-        new VisibilityControl(password, findViewById(R.id.visibility_control));
+        new PasswordVisibilityControl(password, findViewById(R.id.visibility_control));
 
         findViewById(R.id.register_button).setOnClickListener(view -> {
 
@@ -39,8 +39,8 @@ public class RegisterActivity extends AppCompatActivity {
                     _password = password.getText().toString(),
                     _confirmPassword = confirmPassword.getText().toString();
 
-            if(_name.length() <= 1){
-                name.setError("Username has to contain more than 1 character");
+            if(_email.length() <= 8) {
+                email.setError("Please enter a legitimate email");
                 return;
             }
 
@@ -54,10 +54,9 @@ public class RegisterActivity extends AppCompatActivity {
                 return;
             }
 
-            if(_email.length() <= 8) {
-                email.setError("Please enter a legitimate email");
-            }else{
-                    //todo -> confirm email
+            if(_name.length() <= 1){
+                name.setError("Username has to contain more than 1 character");
+            } else{
 
                 Retrofit2Init retrofit2Init = new Retrofit2Init();
 
@@ -73,6 +72,9 @@ public class RegisterActivity extends AppCompatActivity {
                     @Override
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                         if(response.code() == 200){
+                            //todo -> confirm email
+
+
                             Toast.makeText(getBaseContext(), "Signed up successfully", Toast.LENGTH_SHORT).show();
                         }else if(response.code() == 400) {
                             Toast.makeText(getBaseContext(), "You are already signed up", Toast.LENGTH_SHORT).show();

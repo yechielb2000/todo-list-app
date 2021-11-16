@@ -14,4 +14,7 @@ public interface RetrofitInterface {
 
     @POST("/users/new")
     Call<Void> executeNewUser(@Body HashMap<String, String> map);
+
+    @POST("/tasks/new")
+    Call<Void> executeNewTask(@Body HashMap<String, String> map);
 }

@@ -1,4 +1,4 @@
-package com.example.todolist.fragments;
+package com.example.todolist.ui.fragments;
 
 import android.graphics.Color;
 import android.os.Bundle;

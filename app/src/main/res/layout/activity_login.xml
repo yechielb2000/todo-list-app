@@ -8,8 +8,6 @@
     android:gravity="center"
     >
 
-<!--  todo make a forget password option  -->
-
     <LinearLayout
         android:layout_margin="70dp"
         android:layout_width="match_parent"

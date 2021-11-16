@@ -1,4 +1,4 @@
-package com.example.todolist.fragments;
+package com.example.todolist.ui.fragments;
 
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
@@ -8,23 +8,27 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TimePicker;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import com.example.todolist.R;
+import com.example.todolist.backend.Retrofit2Init;
 import java.util.Calendar;
-import java.util.Date;
+import java.util.HashMap;
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class CreateNewTaskFragment extends DialogFragment {
 
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
     private long pickedDate;
-    private final long currentDate = new Date().getTime();
+    private ProgressBar progressBar;
     private EditText title, text;
-
 
     @Nullable @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -33,9 +37,9 @@ public class CreateNewTaskFragment extends DialogFragment {
 
         dateButton = view.findViewById(R.id.date_picker);
         Button submitTask = view.findViewById(R.id.submit_task);
-
         title = view.findViewById(R.id.edit_text_title);
         text = view.findViewById(R.id.edit_text_text);
+        progressBar = view.findViewById(R.id.progress_bar);
 
         initDatePicker();
 
@@ -43,11 +47,42 @@ public class CreateNewTaskFragment extends DialogFragment {
 
         submitTask.setOnClickListener(v -> {
 
-            Toast.makeText(getContext(), title.getText().toString() + "\n" + text.getText().toString() + "\n" + currentDate + "\n" + pickedDate, Toast.LENGTH_LONG).show();
-           //todo new String[]{title.getText().toString(), text.getText().toString(), currentDate, pickedDate}
-           // send [title, text, current time, deadline time] to database
-        });
+            progressBar.setVisibility(View.VISIBLE);
 
+            String _title = title.getText().toString(),
+            _text = text.getText().toString();
+            long _pickedDate = pickedDate;
+
+            Retrofit2Init retrofit2Init = new Retrofit2Init();
+
+            HashMap<String, String> map = new HashMap<>();
+
+            map.put("title", _title);
+            map.put("text", _text);
+            map.put("picked_date", String.valueOf(_pickedDate));
+
+            Call<Void> call = retrofit2Init.retrofitInterface.executeNewTask(map);
+
+            call.enqueue(new Callback<Void>() {
+                @Override
+                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+
+                    progressBar.setVisibility(View.GONE);
+                    if(response.code() == 200){
+                        Toast.makeText(getContext(), "Task added", Toast.LENGTH_SHORT).show();
+                        getActivity().getFragmentManager().popBackStack();
+                    }else {
+                        Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
+                    }
+                }
+
+                @Override
+                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                    progressBar.setVisibility(View.GONE);
+                    Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        });
         return view;
     }
 

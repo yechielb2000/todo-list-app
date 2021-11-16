@@ -1,68 +1,77 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.swiperefreshlayout.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/page">
+    android:id="@+id/tasks_fragment">
 
-    <TextView
-        android:id="@+id/highlight"
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:text="@string/tasks"
-        android:textColor="@color/red"
-        android:textStyle="bold"
-        android:textSize="30sp" />
+        android:layout_height="match_parent"
+        android:background="@color/page">
 
-   <ScrollView
-       android:layout_width="match_parent"
-       android:layout_height="match_parent"
-       android:layout_below="@+id/highlight">
+        <TextView
+            android:id="@+id/highlight"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/tasks"
+            android:textColor="@color/red"
+            android:textStyle="bold"
+            android:textSize="30sp" />
 
-       <LinearLayout
-           android:layout_width="match_parent"
-           android:layout_height="wrap_content"
-           android:gravity="top"
-           android:orientation="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/highlight">
 
-           <TextView
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_margin="10dp"
-               android:text="@string/today_tasks"
-               android:textColor="@color/redDark"
-               android:textSize="20sp" />
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="top"
+                android:orientation="vertical">
 
-           <androidx.recyclerview.widget.RecyclerView
-               android:id="@+id/today_tasks"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="@string/today_tasks"
+                    android:textColor="@color/redDark"
+                    android:textSize="20sp" />
 
-           <TextView
-               android:layout_width="match_parent"
-               android:layout_height="wrap_content"
-               android:layout_margin="10dp"
-               android:text="@string/more_tasks"
-               android:textColor="@color/redDark"
-               android:textSize="20sp" />
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/today_tasks"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"/>
 
-           <androidx.recyclerview.widget.RecyclerView
-               android:id="@+id/more_tasks"
-               android:layout_width="match_parent"
-               android:layout_height="match_parent" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="10dp"
+                    android:text="@string/more_tasks"
+                    android:textColor="@color/redDark"
+                    android:textSize="20sp" />
 
-       </LinearLayout>
-   </ScrollView>
+                <androidx.recyclerview.widget.RecyclerView
+                    android:id="@+id/more_tasks"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent" />
+
+            </LinearLayout>
+        </ScrollView>
 
 
-    <com.google.android.material.floatingactionbutton.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_margin="20dp"
-        android:backgroundTint="@color/red"
-        android:src="@drawable/ic_add"
-        android:translationZ="10dp"/>
-</RelativeLayout>
+        <com.google.android.material.floatingactionbutton.FloatingActionButton
+            android:id="@+id/fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentBottom="true"
+            android:layout_margin="20dp"
+            android:backgroundTint="@color/red"
+            android:src="@drawable/ic_add"
+            android:translationZ="10dp"/>
+
+    </RelativeLayout>
+
+</androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

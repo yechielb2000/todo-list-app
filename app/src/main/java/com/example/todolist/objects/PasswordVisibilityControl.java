@@ -6,9 +6,9 @@ import android.widget.ImageButton;
 
 import com.example.todolist.R;
 
-public class VisibilityControl {
+public class PasswordVisibilityControl {
 
-    public VisibilityControl(EditText password, ImageButton passwordVisibility) {
+    public PasswordVisibilityControl(EditText password, ImageButton passwordVisibility) {
 
         passwordVisibility.setTag(R.drawable.ic_invisible);
         passwordVisibility.setOnClickListener(view -> {

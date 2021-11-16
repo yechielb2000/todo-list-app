@@ -8,15 +8,12 @@ import android.os.Bundle;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
-
 import com.example.todolist.R;
 import com.example.todolist.backend.Retrofit2Init;
 import com.example.todolist.objects.SharedPreferencesObject;
-import com.example.todolist.objects.VisibilityControl;
+import com.example.todolist.objects.PasswordVisibilityControl;
 import com.google.android.material.snackbar.Snackbar;
-
 import java.util.HashMap;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -34,6 +31,8 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
+        startActivity(new Intent(getBaseContext(), MainActivity.class));//todo ->delete after
+
         findViewById(R.id.not_register_button).setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
 
         name = findViewById(R.id.sign_in_name);
@@ -41,11 +40,11 @@ public class LoginActivity extends AppCompatActivity {
         SwitchCompat rememberMe = findViewById(R.id.remember_me_switch);
         TextView forgotPassword = findViewById(R.id.forgot_password_textview);
 
-        forgotPassword.setOnClickListener(view -> Snackbar.make(findViewById(R.id.forgot_password_textview) , "Currently unavailable" ,Snackbar.LENGTH_SHORT).show());
+        forgotPassword.setOnClickListener(view -> Snackbar.make(findViewById(R.id.forgot_password_textview) , "Currently u navailable" ,Snackbar.LENGTH_SHORT).show());
 
         prefObject = new SharedPreferencesObject(this);
 
-        new VisibilityControl(password, findViewById(R.id.visibility_control));
+        new PasswordVisibilityControl(password, findViewById(R.id.visibility_control));
 
         if(prefObject.getSharedPreferences().contains(REMEMBER_ME)){
             if (prefObject.getBoolean(REMEMBER_ME))

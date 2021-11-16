@@ -1,4 +1,4 @@
-package com.example.todolist.fragments;
+package com.example.todolist.ui.fragments;
 
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -15,34 +15,41 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
+import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
+
 import com.example.todolist.R;
 import com.example.todolist.ui.RecyclerViewAdapter;
 import com.example.todolist.objects.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 
 import java.util.ArrayList;
+import java.util.Objects;
 
 public class TasksFragment extends Fragment {
 
-   RecyclerView todayTasks, moreTasks;
+    RecyclerView todayTasks, moreTasks;
     RecyclerViewAdapter adapter;
     ArrayList<Task> todayTasksList = new ArrayList<>(), moreTasksList = new ArrayList<>();
-
+    SwipeRefreshLayout swipeRefreshLayout;
     @Override  @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.fragment_tasks, container, false);
         ((AppCompatActivity)getActivity()).getSupportActionBar();
         setHasOptionsMenu(true);
+
+        swipeRefreshLayout = view.findViewById(R.id.tasks_fragment);
+        swipeRefreshLayout.setOnRefreshListener(() -> {
+            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TasksFragment()).commit();
+        });
+
         FloatingActionButton floatingActionButton = view.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(v -> {
 
             Bundle bundle = new Bundle();
-//            bundle.putString("date", newDate);
 
             CreateNewTaskFragment dialogFragment = new CreateNewTaskFragment();
             dialogFragment.setArguments(bundle);
             dialogFragment.show(getActivity().getSupportFragmentManager(), "dialog fragment");
-
         });
 
 
