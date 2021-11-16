@@ -14,6 +14,10 @@ public class SharedPreferencesObject {
         editor = sharedPreferences.edit();
     }
 
+    public SharedPreferences getSharedPreferences(){
+        return sharedPreferences;
+    }
+
     public void putBoolean(String memoryString, boolean data) {
         editor.putBoolean(memoryString, data);
         save();
@@ -30,7 +34,7 @@ public class SharedPreferencesObject {
     }
 
     public boolean getBoolean(String memoryString){
-        return sharedPreferences.getBoolean(memoryString, true);
+        return sharedPreferences.getBoolean(memoryString, false);
     }
 
     public int getInt(String memoryString){

@@ -6,11 +6,14 @@ import androidx.appcompat.widget.SwitchCompat;
 import android.content.Intent;
 import android.os.Bundle;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.todolist.R;
 import com.example.todolist.backend.Retrofit2Init;
+import com.example.todolist.objects.SharedPreferencesObject;
 import com.example.todolist.objects.VisibilityControl;
+import com.google.android.material.snackbar.Snackbar;
 
 import java.util.HashMap;
 
@@ -21,6 +24,10 @@ import retrofit2.Response;
 public class LoginActivity extends AppCompatActivity {
 
     private EditText name, password;
+    private boolean rememberMeStatus = false;
+    private SharedPreferencesObject prefObject;
+
+    private final String REMEMBER_ME = "rememberMe";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,15 +39,33 @@ public class LoginActivity extends AppCompatActivity {
         name = findViewById(R.id.sign_in_name);
         password = findViewById(R.id.sign_in_password);
         SwitchCompat rememberMe = findViewById(R.id.remember_me_switch);
+        TextView forgotPassword = findViewById(R.id.forgot_password_textview);
 
-        //todo -> read from shared if rememberMe is checked if it is let him in without login
+        forgotPassword.setOnClickListener(view -> Snackbar.make(findViewById(R.id.forgot_password_textview) , "Currently unavailable" ,Snackbar.LENGTH_SHORT).show());
+
+        prefObject = new SharedPreferencesObject(this);
 
         new VisibilityControl(password, findViewById(R.id.visibility_control));
+
+        if(prefObject.getSharedPreferences().contains(REMEMBER_ME)){
+            if (prefObject.getBoolean(REMEMBER_ME))
+                startActivity(new Intent(getBaseContext(), MainActivity.class));
+        }
+
+        rememberMe.setOnCheckedChangeListener((buttonView, isChecked) -> rememberMeStatus = isChecked);
 
         findViewById(R.id.login_button).setOnClickListener(view -> {
 
             String _name = name.getText().toString(),
                     _password = password.getText().toString();
+
+            if(_name.isEmpty()){
+                name.setError("Fill name.");
+                return;
+            }else if(_password.isEmpty()){
+                password.setError("Fill password.");
+                return;
+            }
 
             Retrofit2Init retrofit2Init = new Retrofit2Init();
 
@@ -55,9 +80,11 @@ public class LoginActivity extends AppCompatActivity {
                 @Override
                 public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                     if(response.code() == 200){
-                        //todo -> save id in shared, if remember me is on let him in without checking
+
+                        if(rememberMeStatus) prefObject.putBoolean(REMEMBER_ME, true);
+
                         startActivity(new Intent(getBaseContext(), MainActivity.class));
-                    }else if(response.code() == 400) {
+                    }else{
                         Toast.makeText(getBaseContext(), "Your name or password is incorrect", Toast.LENGTH_SHORT).show();
                     }
                 }
