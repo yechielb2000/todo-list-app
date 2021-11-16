@@ -3,7 +3,9 @@ package com.example.todolist.ui;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.Toast;
 
 import com.example.todolist.R;
@@ -19,6 +21,7 @@ import retrofit2.Response;
 public class RegisterActivity extends AppCompatActivity {
 
     private EditText email, name, password, confirmPassword;
+    private ProgressBar progressBar;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -29,6 +32,8 @@ public class RegisterActivity extends AppCompatActivity {
         name = findViewById(R.id.register_name);
         password = findViewById(R.id.register_password);
         confirmPassword = findViewById(R.id.register_confirm_password);
+
+        progressBar = findViewById(R.id.progress_bar);
 
         new PasswordVisibilityControl(password, findViewById(R.id.visibility_control));
 
@@ -58,6 +63,8 @@ public class RegisterActivity extends AppCompatActivity {
                 name.setError("Username has to contain more than 1 character");
             } else{
 
+                progressBar.setVisibility(View.VISIBLE);
+
                 Retrofit2Init retrofit2Init = new Retrofit2Init();
 
                 HashMap<String, String> map = new HashMap<>();
@@ -73,7 +80,7 @@ public class RegisterActivity extends AppCompatActivity {
                     public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                         if(response.code() == 200){
                             //todo -> confirm email
-
+                            progressBar.setVisibility(View.GONE);
 
                             Toast.makeText(getBaseContext(), "Signed up successfully", Toast.LENGTH_SHORT).show();
                         }else if(response.code() == 400) {
@@ -83,6 +90,7 @@ public class RegisterActivity extends AppCompatActivity {
 
                     @Override
                     public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                        progressBar.setVisibility(View.GONE);
                         Toast.makeText(getBaseContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });

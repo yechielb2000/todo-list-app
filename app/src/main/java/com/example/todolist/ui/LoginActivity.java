@@ -5,7 +5,9 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.appcompat.widget.SwitchCompat;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.EditText;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import com.example.todolist.R;
@@ -23,6 +25,7 @@ public class LoginActivity extends AppCompatActivity {
     private EditText name, password;
     private boolean rememberMeStatus = false;
     private SharedPreferencesObject prefObject;
+    private ProgressBar progressBar;
 
     private final String REMEMBER_ME = "rememberMe";
 
@@ -30,6 +33,8 @@ public class LoginActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        progressBar = findViewById(R.id.progress_bar);
 
         startActivity(new Intent(getBaseContext(), MainActivity.class));//todo ->delete after
 
@@ -55,6 +60,8 @@ public class LoginActivity extends AppCompatActivity {
 
         findViewById(R.id.login_button).setOnClickListener(view -> {
 
+            progressBar.setVisibility(View.VISIBLE);
+
             String _name = name.getText().toString(),
                     _password = password.getText().toString();
 
@@ -78,6 +85,7 @@ public class LoginActivity extends AppCompatActivity {
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                    progressBar.setVisibility(View.GONE);
                     if(response.code() == 200){
 
                         if(rememberMeStatus) prefObject.putBoolean(REMEMBER_ME, true);
@@ -90,6 +98,7 @@ public class LoginActivity extends AppCompatActivity {
 
                 @Override
                 public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                    progressBar.setVisibility(View.GONE);
                     Toast.makeText(getBaseContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
             });
