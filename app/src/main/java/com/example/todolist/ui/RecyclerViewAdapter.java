@@ -5,15 +5,13 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
 import android.widget.Filter;
 import android.widget.Filterable;
 import android.widget.TextView;
-
 import androidx.recyclerview.widget.RecyclerView;
-
 import com.example.todolist.R;
 import com.example.todolist.objects.Task;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -36,7 +34,6 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         fullList.addAll(list);
     }
 
-    // inflates the row layout from xml when needed
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = mInflater.inflate(R.layout.task, parent, false);
@@ -48,7 +45,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         Task task = list.get(position);
 
         holder.title.setText(task.getTitle());
-        holder.text.setText(task.getText());
+        holder.text.setText(task.getText() + "\nTask ID : " + task.getId());
+
+        holder.done_cb.setOnClickListener(view -> {
+            if(holder.done_cb.isChecked()){
+                //show delete button
+            }else{
+                //disappear delete button
+            }
+        });
 
     }
 
@@ -62,14 +67,15 @@ public class RecyclerViewAdapter extends RecyclerView.Adapter<RecyclerViewAdapte
         void onItemClick(View view, int position);
     }
 
-    // stores and recycles views as they are scrolled off screen
     public class ViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         TextView title, text;
+        CheckBox done_cb;
 
         ViewHolder(View itemView) {
             super(itemView);
             title = itemView.findViewById(R.id.task_title);
             text = itemView.findViewById(R.id.task_text);
+            done_cb = itemView.findViewById(R.id.checkb);
             itemView.setOnClickListener(this);
         }
 

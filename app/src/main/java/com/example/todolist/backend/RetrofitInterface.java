@@ -1,5 +1,8 @@
 package com.example.todolist.backend;
 
+import com.example.todolist.objects.Task;
+
+import java.util.ArrayList;
 import java.util.HashMap;
 
 import retrofit2.Call;
@@ -17,4 +20,7 @@ public interface RetrofitInterface {
 
     @POST("/tasks/new")
     Call<Void> executeNewTask(@Body HashMap<String, String> map);
+
+    @GET("/tasks")
+    Call<ArrayList<Task>> executeGetTasks();
 }

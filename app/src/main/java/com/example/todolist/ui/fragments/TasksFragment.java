@@ -8,39 +8,50 @@ import android.view.MenuItem;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.widget.ProgressBar;
 import android.widget.SearchView;
+import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
-
 import com.example.todolist.R;
+import com.example.todolist.backend.Retrofit2Init;
 import com.example.todolist.ui.RecyclerViewAdapter;
 import com.example.todolist.objects.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
-
 import java.util.ArrayList;
-import java.util.Objects;
+import java.util.Date;
+
+import retrofit2.Call;
+import retrofit2.Callback;
+import retrofit2.Response;
 
 public class TasksFragment extends Fragment {
 
-    RecyclerView todayTasks, moreTasks;
-    RecyclerViewAdapter adapter;
-    ArrayList<Task> todayTasksList = new ArrayList<>(), moreTasksList = new ArrayList<>();
-    SwipeRefreshLayout swipeRefreshLayout;
-    @Override  @Nullable
+    private RecyclerView todayTasks, moreTasks;
+    private RecyclerViewAdapter adapter;
+    private final ArrayList<Task> todayTasksList = new ArrayList<>(), moreTasksList = new ArrayList<>();
+    private ProgressBar progressBar;
+
+    @Override @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        View view = inflater.inflate(R.layout.fragment_tasks, container, false);
-        ((AppCompatActivity)getActivity()).getSupportActionBar();
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setTitle("Tasks");
+
         setHasOptionsMenu(true);
 
-        swipeRefreshLayout = view.findViewById(R.id.tasks_fragment);
-        swipeRefreshLayout.setOnRefreshListener(() -> {
-            getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TasksFragment()).commit();
-        });
+        progressBar = view.findViewById(R.id.progress_bar);
+
+        SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.tasks_fragment);
+        swipeRefreshLayout.setOnRefreshListener(() ->
+                getActivity().getSupportFragmentManager().beginTransaction()
+                        .replace(R.id.fragment_container, new TasksFragment()).commit());
 
         FloatingActionButton floatingActionButton = view.findViewById(R.id.fab);
         floatingActionButton.setOnClickListener(v -> {
@@ -52,21 +63,57 @@ public class TasksFragment extends Fragment {
             dialogFragment.show(getActivity().getSupportFragmentManager(), "dialog fragment");
         });
 
-
         todayTasks = view.findViewById(R.id.today_tasks);
         moreTasks = view.findViewById(R.id.more_tasks);
 
-        getTasks(todayTasksList);
-        getTasks(moreTasksList);
+        Retrofit2Init retrofit2Init = new Retrofit2Init();
 
-        recyclerViewAdapter(todayTasks, todayTasksList);
-        recyclerViewAdapter(moreTasks, moreTasksList);
+        Call<ArrayList<Task>> call = retrofit2Init.retrofitInterface.executeGetTasks();
+
+        call.enqueue(new Callback<ArrayList<Task>>() {
+
+            @Override
+            public void onResponse(@NonNull Call<ArrayList<Task>> call, @NonNull Response<ArrayList<Task>> response) {
+                progressBar.setVisibility(View.GONE);
+
+                if(response.isSuccessful() && !response.body().isEmpty()){
+
+                    for (Task task : response.body()) {
+                        if(task.getPickedDate() == System.currentTimeMillis()){
+                            addTask(todayTasksList, task.getTitle(), task.getText(), task.getId(), task.getPickedDate());
+                        }else{
+                            addTask(moreTasksList, task.getTitle(), task.getText(), task.getId(), task.getPickedDate());
+                        }
+                    }
+
+                    view.findViewById(R.id.lists_layout).setVisibility(View.VISIBLE);
+
+                    if(!todayTasksList.isEmpty()) {
+                        recyclerViewAdapter(todayTasks, todayTasksList);
+                        view.findViewById(R.id.today_tv).setVisibility(View.VISIBLE);
+                    }
+                    if(!moreTasksList.isEmpty()) {
+                        recyclerViewAdapter(moreTasks, moreTasksList);
+                        view.findViewById(R.id.more_tv).setVisibility(View.VISIBLE);
+                    }
+
+                }else{
+                    Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
+                }
+            }
+
+            @Override
+            public void onFailure(@NonNull Call<ArrayList<Task>> call, @NonNull Throwable t) {
+                progressBar.setVisibility(View.GONE);
+                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+
         return view;
     }
 
-    public void getTasks(ArrayList tasks){
-        for (int i = 0; i < 3; i++)
-            tasks.add(new Task("title " + i, "Some Text for example "));
+    public void addTask(ArrayList<Task> task, String title, String text, String id, long pickedDate){
+            task.add(new Task(id, title, text, pickedDate));
     }
 
     private void recyclerViewAdapter(RecyclerView recyclerView, ArrayList<Task> list){
@@ -77,9 +124,10 @@ public class TasksFragment extends Fragment {
         recyclerView.setAdapter(adapter);
     }
 
-    public boolean onCreateOptionsMenu(Menu menu){
+    @Override
+    public void onCreateOptionsMenu(@NonNull Menu menu, @NonNull MenuInflater menuInflater){
 
-        MenuInflater menuInflater =  getActivity().getMenuInflater();
+        menuInflater =  getActivity().getMenuInflater();
         menuInflater.inflate(R.menu.search_menu, menu);
 
         MenuItem searchItem = menu.findItem(R.id.action_search);
@@ -100,6 +148,5 @@ public class TasksFragment extends Fragment {
                 return true;
             }
         });
-        return true;
     }
 }

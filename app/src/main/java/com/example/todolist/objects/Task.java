@@ -2,26 +2,29 @@ package com.example.todolist.objects;
 
 public class Task {
 
-    private String title, text;
+    private final String title, text, id;
+    private final long pickedDate;
 
-    public Task(String title, String text) {
+    public Task(String id, String title, String text, long pickedDate) {
+        this.id = id;
         this.title = title;
         this.text = text;
+        this.pickedDate = pickedDate;
     }
 
     public String getTitle() {
         return title;
     }
 
-    public void setTitle(String title) {
-        this.title = title;
-    }
-
     public String getText() {
         return text;
     }
 
-    public void setText(String text) {
-        this.text = text;
+    public String getId() {
+        return id;
+    }
+
+    public long getPickedDate() {
+        return pickedDate;
     }
 }
