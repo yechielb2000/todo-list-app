@@ -25,7 +25,6 @@ import com.example.todolist.ui.RecyclerViewAdapter;
 import com.example.todolist.objects.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
-import java.util.Date;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -33,27 +32,27 @@ import retrofit2.Response;
 
 public class TasksFragment extends Fragment {
 
-    private RecyclerView todayTasks, moreTasks;
+    private View view;
+    private RecyclerView tasks;
     private RecyclerViewAdapter adapter;
-    private final ArrayList<Task> todayTasksList = new ArrayList<>(), moreTasksList = new ArrayList<>();
     private ProgressBar progressBar;
 
     @Override @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-       View view = inflater.inflate(R.layout.fragment_tasks, container, false);
+        view = inflater.inflate(R.layout.fragment_tasks, container, false);
         ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
         actionBar.setTitle("Tasks");
-
         setHasOptionsMenu(true);
 
         progressBar = view.findViewById(R.id.progress_bar);
+        progressBar.setVisibility(View.VISIBLE);
 
         SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.tasks_fragment);
         swipeRefreshLayout.setOnRefreshListener(() ->
                 getActivity().getSupportFragmentManager().beginTransaction()
                         .replace(R.id.fragment_container, new TasksFragment()).commit());
 
-        FloatingActionButton floatingActionButton = view.findViewById(R.id.fab);
+        FloatingActionButton floatingActionButton = view.findViewById(R.id.fab_add_task);
         floatingActionButton.setOnClickListener(v -> {
 
             Bundle bundle = new Bundle();
@@ -63,12 +62,19 @@ public class TasksFragment extends Fragment {
             dialogFragment.show(getActivity().getSupportFragmentManager(), "dialog fragment");
         });
 
-        todayTasks = view.findViewById(R.id.today_tasks);
-        moreTasks = view.findViewById(R.id.more_tasks);
+        tasks = view.findViewById(R.id.today_tasks);
 
+        getTasksFromDatabase();
+
+        return view;
+    }
+
+    private void getTasksFromDatabase(){
         Retrofit2Init retrofit2Init = new Retrofit2Init();
 
         Call<ArrayList<Task>> call = retrofit2Init.retrofitInterface.executeGetTasks();
+
+        ArrayList<Task> tasksList = new ArrayList<>();
 
         call.enqueue(new Callback<ArrayList<Task>>() {
 
@@ -79,22 +85,17 @@ public class TasksFragment extends Fragment {
                 if(response.isSuccessful() && !response.body().isEmpty()){
 
                     for (Task task : response.body()) {
-                        if(task.getPickedDate() == System.currentTimeMillis()){
-                            addTask(todayTasksList, task.getTitle(), task.getText(), task.getId(), task.getPickedDate());
-                        }else{
-                            addTask(moreTasksList, task.getTitle(), task.getText(), task.getId(), task.getPickedDate());
-                        }
+                        tasksList.add(new Task(task.getId(), task.getTitle(), task.getText(), task.getPickedDate()));
                     }
 
                     view.findViewById(R.id.lists_layout).setVisibility(View.VISIBLE);
 
-                    if(!todayTasksList.isEmpty()) {
-                        recyclerViewAdapter(todayTasks, todayTasksList);
-                        view.findViewById(R.id.today_tv).setVisibility(View.VISIBLE);
-                    }
-                    if(!moreTasksList.isEmpty()) {
-                        recyclerViewAdapter(moreTasks, moreTasksList);
-                        view.findViewById(R.id.more_tv).setVisibility(View.VISIBLE);
+                    if(!tasksList.isEmpty()) {
+
+                        tasks.setHasFixedSize(true);
+                        tasks.setLayoutManager(new LinearLayoutManager(getContext()));
+                        adapter = new RecyclerViewAdapter(getContext(), tasksList);
+                        tasks.setAdapter(adapter);
                     }
 
                 }else{
@@ -108,20 +109,6 @@ public class TasksFragment extends Fragment {
                 Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
-
-        return view;
-    }
-
-    public void addTask(ArrayList<Task> task, String title, String text, String id, long pickedDate){
-            task.add(new Task(id, title, text, pickedDate));
-    }
-
-    private void recyclerViewAdapter(RecyclerView recyclerView, ArrayList<Task> list){
-
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
-       adapter = new RecyclerViewAdapter(getContext(), list);
-        recyclerView.setAdapter(adapter);
     }
 
     @Override

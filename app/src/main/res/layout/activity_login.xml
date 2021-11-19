@@ -71,18 +71,12 @@
             android:layout_height="wrap_content"
             android:layout_gravity="right"
             tools:ignore="RtlHardcoded"
+            android:layout_marginBottom="20dp"
             android:layout_marginTop="3dp"
             android:text="@string/forgot_password"
-            android:textColor="@color/redDark"/>
+            android:textColor="@color/redDark" />
 
-        <ProgressBar
-            android:id="@+id/progress_bar"
-            android:layout_width="50dp"
-            android:layout_height="50dp"
-            android:layout_marginTop="20dp"
-            android:visibility="gone"
-            android:layout_gravity="center"
-            android:indeterminateTint="@color/redDark"/>
+        <include layout="@layout/progress_bar_layout" />
 
         <LinearLayout
             android:layout_marginTop="30dp"

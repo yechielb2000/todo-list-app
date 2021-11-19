@@ -5,78 +5,31 @@
     android:layout_height="match_parent"
     android:id="@+id/tasks_fragment">
 
-        <ScrollView
+    <RelativeLayout
+        android:id="@+id/lists_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible">
+
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/today_tasks"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content">
+            android:layout_height="match_parent"
+            android:background="@color/page" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_gravity="center">
-
-                <ProgressBar
-                    android:id="@+id/progress_bar"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:visibility="visible"
-                    android:layout_gravity="center|clip_vertical"
-                    android:indeterminateTint="@color/redDark"/>
-
-                <LinearLayout
-                    android:id="@+id/lists_layout"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:orientation="vertical"
-                    android:visibility="gone">
-
-                    <TextView
-                        android:id="@+id/today_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text="@string/today_tasks"
-                        android:gravity="center"
-                        android:textColor="@color/redDark"
-                        android:textSize="20sp"
-                        android:visibility="gone"/>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/today_tasks"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"/>
-
-                    <TextView
-                        android:id="@+id/more_tv"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="10dp"
-                        android:text="@string/more_tasks"
-                        android:gravity="center"
-                        android:textColor="@color/redDark"
-                        android:textSize="20sp"
-                        android:visibility="gone"/>
-
-                    <androidx.recyclerview.widget.RecyclerView
-                        android:id="@+id/more_tasks"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-        </ScrollView>
+        <include layout="@layout/progress_bar_layout" />
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
-            android:id="@+id/fab"
+            android:id="@+id/fab_add_task"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
             android:layout_alignParentBottom="true"
-            android:layout_margin="20dp"
+            android:layout_marginEnd="20dp"
+            android:layout_marginBottom="20dp"
             android:backgroundTint="@color/red"
-            android:src="@drawable/ic_add"
-            android:translationZ="10dp"/>
+            android:src="@drawable/ic_add" />
+
+    </RelativeLayout>
 
 </androidx.swiperefreshlayout.widget.SwipeRefreshLayout>

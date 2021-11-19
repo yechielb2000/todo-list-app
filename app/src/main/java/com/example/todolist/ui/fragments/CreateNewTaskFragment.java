@@ -66,13 +66,10 @@ public class CreateNewTaskFragment extends DialogFragment {
             call.enqueue(new Callback<Void>() {
                 @Override
                 public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
-
                     progressBar.setVisibility(View.GONE);
-                    if(response.code() == 200){
-                        Toast.makeText(getContext(), "Task added", Toast.LENGTH_SHORT).show();
-                        getActivity().getFragmentManager().popBackStack();
-                    }else {
+                    if(response.isSuccessful()) {
                         Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
+                        getFragmentManager().beginTransaction().remove(CreateNewTaskFragment.this).commit();
                     }
                 }
 
@@ -80,6 +77,7 @@ public class CreateNewTaskFragment extends DialogFragment {
                 public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
+                    getFragmentManager().beginTransaction().remove(CreateNewTaskFragment.this).commit();
                 }
             });
         });
