@@ -21,6 +21,8 @@ import androidx.recyclerview.widget.RecyclerView;
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout;
 import com.example.todolist.R;
 import com.example.todolist.backend.Retrofit2Init;
+import com.example.todolist.objects.MemoryStringsList;
+import com.example.todolist.objects.SharedPreferencesObject;
 import com.example.todolist.ui.RecyclerViewAdapter;
 import com.example.todolist.objects.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
@@ -36,6 +38,7 @@ public class TasksFragment extends Fragment {
     private RecyclerView tasks;
     private RecyclerViewAdapter adapter;
     private ProgressBar progressBar;
+    private SharedPreferencesObject preferencesObject;
 
     @Override @Nullable
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -46,6 +49,8 @@ public class TasksFragment extends Fragment {
 
         progressBar = view.findViewById(R.id.progress_bar);
         progressBar.setVisibility(View.VISIBLE);
+
+        preferencesObject = new SharedPreferencesObject(getContext());
 
         SwipeRefreshLayout swipeRefreshLayout = view.findViewById(R.id.tasks_fragment);
         swipeRefreshLayout.setOnRefreshListener(() ->
@@ -72,7 +77,7 @@ public class TasksFragment extends Fragment {
     private void getTasksFromDatabase(){
         Retrofit2Init retrofit2Init = new Retrofit2Init();
 
-        Call<ArrayList<Task>> call = retrofit2Init.retrofitInterface.executeGetTasks();
+        Call<ArrayList<Task>> call = retrofit2Init.retrofitInterface.executeGetTasks(preferencesObject.getString(MemoryStringsList.USER_ID));
 
         ArrayList<Task> tasksList = new ArrayList<>();
 

@@ -12,6 +12,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 import com.example.todolist.R;
 import com.example.todolist.backend.Retrofit2Init;
+import com.example.todolist.objects.MemoryStringsList;
 import com.example.todolist.objects.SharedPreferencesObject;
 import com.example.todolist.objects.PasswordVisibilityControl;
 import com.google.android.material.snackbar.Snackbar;
@@ -27,16 +28,12 @@ public class LoginActivity extends AppCompatActivity {
     private SharedPreferencesObject prefObject;
     private ProgressBar progressBar;
 
-    private final String REMEMBER_ME = "rememberMe";
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
 
         progressBar = findViewById(R.id.progress_bar);
-
-        startActivity(new Intent(getBaseContext(), MainActivity.class));//todo ->delete after
 
         findViewById(R.id.not_register_button).setOnClickListener(v -> startActivity(new Intent(this, RegisterActivity.class)));
 
@@ -45,14 +42,14 @@ public class LoginActivity extends AppCompatActivity {
         SwitchCompat rememberMe = findViewById(R.id.remember_me_switch);
         TextView forgotPassword = findViewById(R.id.forgot_password_textview);
 
-        forgotPassword.setOnClickListener(view -> Snackbar.make(findViewById(R.id.forgot_password_textview) , "Currently u navailable" ,Snackbar.LENGTH_SHORT).show());
+        forgotPassword.setOnClickListener(view -> Snackbar.make(findViewById(R.id.forgot_password_textview) , "Currently unavailable" ,Snackbar.LENGTH_SHORT).show());
 
         prefObject = new SharedPreferencesObject(this);
 
         new PasswordVisibilityControl(password, findViewById(R.id.visibility_control));
 
-        if(prefObject.getSharedPreferences().contains(REMEMBER_ME)){
-            if (prefObject.getBoolean(REMEMBER_ME))
+        if(prefObject.getSharedPreferences().contains(MemoryStringsList.REMEMBER_ME)){
+            if (prefObject.getBoolean(MemoryStringsList.REMEMBER_ME))
                 startActivity(new Intent(getBaseContext(), MainActivity.class));
         }
 
@@ -75,12 +72,10 @@ public class LoginActivity extends AppCompatActivity {
 
             Retrofit2Init retrofit2Init = new Retrofit2Init();
 
-            HashMap<String, String> map = new HashMap<>();
-
-            map.put("name", _name);
-            map.put("password", _password);
-
-            Call<Void> call = retrofit2Init.retrofitInterface.executeGetUser(map);
+            Call<Void> call = retrofit2Init.retrofitInterface.executeGetUser(
+                    MemoryStringsList.USER_ID
+                    , _name
+                    , _password);
 
             call.enqueue(new Callback<Void>() {
                 @Override
@@ -88,7 +83,7 @@ public class LoginActivity extends AppCompatActivity {
                     progressBar.setVisibility(View.GONE);
                     if(response.code() == 200){
 
-                        if(rememberMeStatus) prefObject.putBoolean(REMEMBER_ME, true);
+                        if(rememberMeStatus) prefObject.putBoolean(MemoryStringsList.REMEMBER_ME, true);
 
                         startActivity(new Intent(getBaseContext(), MainActivity.class));
                     }else{

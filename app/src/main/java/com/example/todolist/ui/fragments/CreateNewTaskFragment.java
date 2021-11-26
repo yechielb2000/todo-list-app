@@ -16,6 +16,9 @@ import androidx.annotation.Nullable;
 import androidx.fragment.app.DialogFragment;
 import com.example.todolist.R;
 import com.example.todolist.backend.Retrofit2Init;
+import com.example.todolist.objects.MemoryStringsList;
+import com.example.todolist.objects.SharedPreferencesObject;
+
 import java.util.Calendar;
 import java.util.HashMap;
 import retrofit2.Call;
@@ -29,6 +32,7 @@ public class CreateNewTaskFragment extends DialogFragment {
     private long pickedDate;
     private ProgressBar progressBar;
     private EditText title, text;
+    private SharedPreferencesObject preferencesObject;
 
     @Nullable @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -40,6 +44,8 @@ public class CreateNewTaskFragment extends DialogFragment {
         title = view.findViewById(R.id.edit_text_title);
         text = view.findViewById(R.id.edit_text_text);
         progressBar = view.findViewById(R.id.progress_bar);
+
+        preferencesObject = new SharedPreferencesObject(getContext());
 
         initDatePicker();
 
@@ -61,7 +67,13 @@ public class CreateNewTaskFragment extends DialogFragment {
             map.put("text", _text);
             map.put("picked_date", String.valueOf(_pickedDate));
 
-            Call<Void> call = retrofit2Init.retrofitInterface.executeNewTask(map);
+            //title, text, deadlineDate, collectionId
+            Call<Void> call = retrofit2Init.retrofitInterface.executeNewTask(
+                    _title,
+                    _text,
+                    _pickedDate,
+                    preferencesObject.getString(MemoryStringsList.USER_ID)
+            );
 
             call.enqueue(new Callback<Void>() {
                 @Override
