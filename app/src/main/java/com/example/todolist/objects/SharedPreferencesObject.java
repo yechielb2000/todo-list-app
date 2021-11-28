@@ -23,11 +23,6 @@ public class SharedPreferencesObject {
         save();
     }
 
-    public void putInt(String memoryString, int data){
-        editor.putInt(memoryString, data);
-        save();
-    }
-
     public void putString(String memoryString, String data){
         editor.putString(memoryString, data);
         save();
@@ -37,21 +32,8 @@ public class SharedPreferencesObject {
         return sharedPreferences.getBoolean(memoryString, false);
     }
 
-    public int getInt(String memoryString){
-        return sharedPreferences.getInt(memoryString, 0);
-    }
-
     public String getString(String memoryString){
         return sharedPreferences.getString(memoryString, null);
-    }
-
-    public void deleteData(String memoryString){
-        editor.remove(memoryString);
-        editor.apply();
-    }
-
-    public void resetSharedPreferences(){
-        editor.clear();
     }
 
     public void save(){

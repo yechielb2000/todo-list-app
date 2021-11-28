@@ -2,14 +2,19 @@ package com.example.todolist.objects;
 
 public class Task {
 
-    private final String title, text, id;
-    private final long pickedDate;
+    private final String title, text, _id;
+    private String message;
+    private final long deadlineDate;
 
-    public Task(String id, String title, String text, long pickedDate) {
-        this.id = id;
+    public Task(String id, String title, String text, long deadlineDate) {
+        this._id = id;
         this.title = title;
         this.text = text;
-        this.pickedDate = pickedDate;
+        this.deadlineDate = deadlineDate;
+    }
+
+    public String getMessage() {
+        return message;
     }
 
     public String getTitle() {
@@ -20,11 +25,11 @@ public class Task {
         return text;
     }
 
-    public String getId() {
-        return id;
+    public String get_id() {
+        return _id;
     }
 
-    public long getPickedDate() {
-        return pickedDate;
+    public long getDeadlineDate() {
+        return deadlineDate;
     }
 }

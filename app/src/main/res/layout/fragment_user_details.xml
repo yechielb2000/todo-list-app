@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="center"
+    android:background="@color/page"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/user_details"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="20sp"
+        android:textColor="@color/black"
+        android:visibility="gone"
+        android:text="@string/homepage" />
+
+    <Button
+        android:id="@+id/delete_acc_button"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/delete_account"
+        android:visibility="gone"
+        android:textColor="@color/redDark"
+        android:backgroundTint="@color/red"
+        android:layout_marginTop="20dp"
+        android:backgroundTintMode="screen"/>
+
+    <include layout="@layout/progress_bar_layout" />
+
+</LinearLayout>

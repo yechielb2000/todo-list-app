@@ -27,7 +27,6 @@ import com.example.todolist.ui.RecyclerViewAdapter;
 import com.example.todolist.objects.Task;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import java.util.ArrayList;
-
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -87,31 +86,27 @@ public class TasksFragment extends Fragment {
             public void onResponse(@NonNull Call<ArrayList<Task>> call, @NonNull Response<ArrayList<Task>> response) {
                 progressBar.setVisibility(View.GONE);
 
-                if(response.isSuccessful() && !response.body().isEmpty()){
+                if (response.isSuccessful() && (response.body() != null && !response.body().isEmpty())) {
 
                     for (Task task : response.body()) {
-                        tasksList.add(new Task(task.getId(), task.getTitle(), task.getText(), task.getPickedDate()));
+                        tasksList.add(new Task(task.get_id(), task.getTitle(), task.getText(), task.getDeadlineDate()));
                     }
 
                     view.findViewById(R.id.lists_layout).setVisibility(View.VISIBLE);
 
-                    if(!tasksList.isEmpty()) {
-
+                    if (!tasksList.isEmpty()) {
                         tasks.setHasFixedSize(true);
                         tasks.setLayoutManager(new LinearLayoutManager(getContext()));
                         adapter = new RecyclerViewAdapter(getContext(), tasksList);
                         tasks.setAdapter(adapter);
                     }
 
-                }else{
-                    Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
-                }
-            }
+                } else Toast.makeText(getContext(), "No tasks yet.", Toast.LENGTH_SHORT).show();
 
+            }
             @Override
             public void onFailure(@NonNull Call<ArrayList<Task>> call, @NonNull Throwable t) {
                 progressBar.setVisibility(View.GONE);
-                Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
             }
         });
     }

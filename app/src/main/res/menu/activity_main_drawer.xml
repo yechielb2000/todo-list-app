@@ -12,15 +12,17 @@
             android:id="@+id/nav_home"
             android:icon="@drawable/ic_home"
             android:title="@string/home"/>
+        <item
+            android:id="@+id/nav_new_task"
+            android:icon="@drawable/ic_add"
+            android:title="@string/new_task"/>
+
     </group>
 
     <item android:title="">
         <menu>
-            <item android:title="@string/action_settings" android:id="@+id/settings" android:icon="@drawable/ic_settings"/>
             <item android:title="@string/log_out" android:id="@+id/log_out" android:icon="@drawable/ic_logout"/>
-            <item android:title="@string/support" android:id="@+id/sup" android:icon="@drawable/ic_sup"/>
             <item android:title="@string/share" android:id="@+id/share_app" android:icon="@drawable/ic_share"/>
-            <item android:title="@string/about" android:id="@+id/about" android:icon="@drawable/ic_about"/>
         </menu>
 
     </item>

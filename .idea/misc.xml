@@ -5,6 +5,7 @@
       <map>
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/checked.xml" value="0.2703125" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/custom_checkbox.xml" value="0.2703125" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/ic_about.xml" value="0.2703125" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/ic_sup.xml" value="0.2703125" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/ic_support.xml" value="0.2703125" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/drawable/task_style.xml" value="0.2703125" />
@@ -13,7 +14,10 @@
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/activity_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/activity_register.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/fragment_create_new_task.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/fragment_homepage.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/fragment_tasks.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/fragment_user_details.xml" value="0.25416666666666665" />
+        <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/nav_header_main.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/progress_bar_layout.xml" value="0.25416666666666665" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/layout/task.xml" value="0.4" />
         <entry key="..\:/Users/yechi/AndroidStudioProjects/MyApplication/TodoList/app/src/main/res/menu/activity_main_drawer.xml" value="0.25416666666666665" />

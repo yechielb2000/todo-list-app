@@ -3,7 +3,6 @@ package com.example.todolist.objects;
 import android.text.method.PasswordTransformationMethod;
 import android.widget.EditText;
 import android.widget.ImageButton;
-
 import com.example.todolist.R;
 
 public class PasswordVisibilityControl {

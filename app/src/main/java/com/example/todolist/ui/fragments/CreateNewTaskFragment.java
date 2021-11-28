@@ -13,23 +13,24 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.ActionBar;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.DialogFragment;
 import com.example.todolist.R;
 import com.example.todolist.backend.Retrofit2Init;
 import com.example.todolist.objects.MemoryStringsList;
 import com.example.todolist.objects.SharedPreferencesObject;
-
+import com.google.android.material.snackbar.Snackbar;
 import java.util.Calendar;
-import java.util.HashMap;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class CreateNewTaskFragment extends DialogFragment {
+public class CreateNewTaskFragment extends DialogFragment{
 
     private DatePickerDialog datePickerDialog;
     private Button dateButton;
-    private long pickedDate;
+    private long deadlineDate;
     private ProgressBar progressBar;
     private EditText title, text;
     private SharedPreferencesObject preferencesObject;
@@ -38,7 +39,8 @@ public class CreateNewTaskFragment extends DialogFragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
         View view = inflater.inflate(R.layout.fragment_create_new_task, container, false);
-
+        ActionBar actionBar = ((AppCompatActivity)getActivity()).getSupportActionBar();
+        actionBar.setTitle("New Task");
         dateButton = view.findViewById(R.id.date_picker);
         Button submitTask = view.findViewById(R.id.submit_task);
         title = view.findViewById(R.id.edit_text_title);
@@ -57,22 +59,11 @@ public class CreateNewTaskFragment extends DialogFragment {
 
             String _title = title.getText().toString(),
             _text = text.getText().toString();
-            long _pickedDate = pickedDate;
+            long _deadlineDate = deadlineDate;
 
             Retrofit2Init retrofit2Init = new Retrofit2Init();
 
-            HashMap<String, String> map = new HashMap<>();
-
-            map.put("title", _title);
-            map.put("text", _text);
-            map.put("picked_date", String.valueOf(_pickedDate));
-
-            //title, text, deadlineDate, collectionId
-            Call<Void> call = retrofit2Init.retrofitInterface.executeNewTask(
-                    _title,
-                    _text,
-                    _pickedDate,
-                    preferencesObject.getString(MemoryStringsList.USER_ID)
+            Call<Void> call = retrofit2Init.retrofitInterface.executeNewTask(_title, _text, _deadlineDate, preferencesObject.getString(MemoryStringsList.USER_ID)
             );
 
             call.enqueue(new Callback<Void>() {
@@ -80,8 +71,16 @@ public class CreateNewTaskFragment extends DialogFragment {
                 public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
                     progressBar.setVisibility(View.GONE);
                     if(response.isSuccessful()) {
-                        Toast.makeText(getContext(), response.message(), Toast.LENGTH_SHORT).show();
-                        getFragmentManager().beginTransaction().remove(CreateNewTaskFragment.this).commit();
+
+                        title.setText(null);
+                        text.setText(null);
+
+                        Snackbar.make(view.findViewById(R.id.new_tasks_layout),
+                                "Task added to your list.\nYou can add another or go back.",
+                                Snackbar.LENGTH_INDEFINITE)
+                                .setAction("BACK", actionView -> getActivity().getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new TasksFragment()).commit())
+                                .setActionTextColor(getResources().getColor(android.R.color.holo_red_light ))
+                                .show();
                     }
                 }
 
@@ -89,7 +88,6 @@ public class CreateNewTaskFragment extends DialogFragment {
                 public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(getContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
-                    getFragmentManager().beginTransaction().remove(CreateNewTaskFragment.this).commit();
                 }
             });
         });
@@ -112,7 +110,7 @@ public class CreateNewTaskFragment extends DialogFragment {
             cal.set(Calendar.HOUR, timePicker.getCurrentHour());
             cal.set(Calendar.MINUTE, timePicker.getCurrentMinute());
 
-            pickedDate = cal.getTimeInMillis();
+            deadlineDate = cal.getTimeInMillis();
         };
 
         datePickerDialog = new DatePickerDialog(getContext(), AlertDialog.THEME_HOLO_DARK, dateSetListener, cal.get(Calendar.YEAR), cal.get(Calendar.MONTH), cal.get(Calendar.DAY_OF_MONTH));
@@ -135,5 +133,4 @@ public class CreateNewTaskFragment extends DialogFragment {
 
         return "Select date";
     }
-
 }

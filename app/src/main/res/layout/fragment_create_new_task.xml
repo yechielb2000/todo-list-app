@@ -5,6 +5,7 @@
     android:background="@color/page"
     android:padding="26dp"
     android:layout_gravity="center"
+    android:id="@+id/new_tasks_layout"
     android:orientation="vertical">
 
 

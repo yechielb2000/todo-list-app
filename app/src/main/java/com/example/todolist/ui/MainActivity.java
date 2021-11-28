@@ -10,21 +10,27 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.core.view.GravityCompat;
 import androidx.drawerlayout.widget.DrawerLayout;
 import com.example.todolist.R;
-import com.example.todolist.ui.fragments.HomepageFragment;
+import com.example.todolist.objects.Share;
+import com.example.todolist.objects.SharedPreferencesObject;
+import com.example.todolist.ui.fragments.CreateNewTaskFragment;
+import com.example.todolist.ui.fragments.UserDetailsFragment;
 import com.example.todolist.ui.fragments.TasksFragment;
 import com.google.android.material.navigation.NavigationView;
 
 public class MainActivity extends AppCompatActivity implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout drawerLayout;
+    private SharedPreferencesObject preferencesObject;
 
-    @Override
+    @SuppressLint("SetTextI18n") @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setTitle("Home page");
+
+        preferencesObject = new SharedPreferencesObject(this);
 
         drawerLayout = findViewById(R.id.drawer_layout);
 
@@ -35,8 +41,9 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
         drawerLayout.addDrawerListener(toggle);
         toggle.syncState();
 
-        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomepageFragment()).commit();
+        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UserDetailsFragment()).commit();
     }
+
 
     @Override
     public void onBackPressed() {
@@ -57,8 +64,21 @@ public class MainActivity extends AppCompatActivity implements NavigationView.On
                 break;
 
             case R.id.nav_home:
-                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new HomepageFragment()).commit();
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new UserDetailsFragment()).commit();
                 drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+
+            case R.id.nav_new_task:
+                getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, new CreateNewTaskFragment()).commit();
+                drawerLayout.closeDrawer(GravityCompat.START);
+                break;
+
+            case R.id.log_out:
+                finish();
+                break;
+
+            case R.id.share_app:
+                new Share("Hi! i'm using Todo list app.\nCome join me!", this);
                 break;
         }
         return true;

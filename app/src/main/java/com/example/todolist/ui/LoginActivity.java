@@ -15,8 +15,8 @@ import com.example.todolist.backend.Retrofit2Init;
 import com.example.todolist.objects.MemoryStringsList;
 import com.example.todolist.objects.SharedPreferencesObject;
 import com.example.todolist.objects.PasswordVisibilityControl;
+import com.example.todolist.objects.User;
 import com.google.android.material.snackbar.Snackbar;
-import java.util.HashMap;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -72,19 +72,17 @@ public class LoginActivity extends AppCompatActivity {
 
             Retrofit2Init retrofit2Init = new Retrofit2Init();
 
-            Call<Void> call = retrofit2Init.retrofitInterface.executeGetUser(
-                    MemoryStringsList.USER_ID
-                    , _name
-                    , _password);
+            Call<User> call = retrofit2Init.retrofitInterface.executeLoginUser(_name, _password);
 
-            call.enqueue(new Callback<Void>() {
+            call.enqueue(new Callback<User>() {
                 @Override
-                public void onResponse(@NonNull Call<Void> call, @NonNull Response<Void> response) {
+                public void onResponse(@NonNull Call<User> call, @NonNull Response<User> response) {
                     progressBar.setVisibility(View.GONE);
-                    if(response.code() == 200){
+                    if(response.isSuccessful()){
+                        prefObject.putString(MemoryStringsList.USER_ID, response.body() != null ? response.body().get_id() : null);
+                        prefObject.putString(MemoryStringsList.USER_NAME, response.body().getName());
 
                         if(rememberMeStatus) prefObject.putBoolean(MemoryStringsList.REMEMBER_ME, true);
-
                         startActivity(new Intent(getBaseContext(), MainActivity.class));
                     }else{
                         Toast.makeText(getBaseContext(), "Your name or password is incorrect", Toast.LENGTH_SHORT).show();
@@ -92,7 +90,7 @@ public class LoginActivity extends AppCompatActivity {
                 }
 
                 @Override
-                public void onFailure(@NonNull Call<Void> call, @NonNull Throwable t) {
+                public void onFailure(@NonNull Call<User> call, @NonNull Throwable t) {
                     progressBar.setVisibility(View.GONE);
                     Toast.makeText(getBaseContext(), t.getMessage(), Toast.LENGTH_SHORT).show();
                 }
